@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Kat2bk/node-api1-project#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "uuid": "^8.3.1"
   }
 }
