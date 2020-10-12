@@ -79,6 +79,26 @@ server.put("/users/:id", async (req, res) => {
     }
 })
 
+server.delete("/users/:id", async (req, res) => {
+    const id = req.params.id;
+
+    if (!id) {
+        return res.status(404).json({
+            message: "this user does not exist"
+        })
+    }
+
+    try {
+        await database.deleteUser(id);
+        res.status(200).json({
+            message: "user was deleted"
+        })
+    } catch (error) {
+        res.status(500).json({
+            message: "user could not be deleted"
+        })
+    }
+})
 
 server.listen(port, () => {
     console.log(`server is listening on http://localhost${port}`)
