@@ -52,6 +52,33 @@ server.post("/users", (req, res) => {
     }
 })
 
+server.put("/users/:id", async (req, res) => {
+    const {id} = req.params;
+    const {name, bio, quote} = req.body;
+
+    if (!id) {
+        return res.status(404).json({
+            message: "this user does not exist"
+        })
+    } else if (!name || !bio || !quote) {
+        return res.status(400).json({
+            message: "please provide all info for user"
+        })
+    }
+
+    try {
+        if (id) {
+            await database.updateUser(id, {name, bio, quote})
+            const updatedUser = await database.getUserById(id);
+            return res.status(200).json(updatedUser)
+        }
+    } catch (error) {
+        res.status(500).json({
+            error: "this user's info could not be updated"
+        })
+    }
+})
+
 
 server.listen(port, () => {
     console.log(`server is listening on http://localhost${port}`)
