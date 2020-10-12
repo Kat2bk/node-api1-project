@@ -1,14 +1,13 @@
-const {v4: uuidv4} = require('uuid');
 
 let users = [
     {
-        id: uuidv4(),
+        id: "1",
         name: "Aragorn",
         bio: "the king of Gondor",
         quote: "I will not let the white city fall"
     },
     {
-        id: uuidv4(),
+        id: "2",
         name: "Legolas",
         bio: "son of Thranduil",
         quote: "they're taking the hobbits to isengard"
@@ -20,14 +19,14 @@ function getUsers() {
 }
 
 function getUserById(id) {
-    users.find(user => {
+    return users.find(user => {
         return user.id === id
     })
 }
 
 function createUser(data) {
     const payload = {
-        id: uuidv4(),
+        id: String(users.length + 1),
         ...data,
     }
 
