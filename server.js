@@ -38,13 +38,18 @@ server.get("/users/:id", (req, res) => {
 })
 
 server.post("/users", (req, res) => {
-    const newUser = database.createUser({
-        name: req.body.name,
-        bio: req.body.bio,
-        quote: req.body.quote
-    })
-
-    res.status(201).json(newUser)
+    if (!req.body.name || !req.body.bio || !req.body.quote) {
+        res.status(400).json({
+            message: "please fill out all required fields"
+        })
+    } else if (req.body.name && req.body.bio && req.body.quote) {
+        const newUser = database.createUser({
+            name: req.body.name,
+            bio: req.body.bio,
+            quote: req.body.quote
+        })
+        res.status(201).json(newUser)
+    }
 })
 
 
